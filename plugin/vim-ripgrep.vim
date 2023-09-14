@@ -67,9 +67,6 @@ endfun
 
 fun! s:RgSearch(txt)
   let l:rgopts = ' '
-  " if &ignorecase == 1
-  "   let l:rgopts = l:rgopts . '-i '
-  " endif
   if &smartcase == 1
     let l:rgopts = l:rgopts . '-S '
   endif
