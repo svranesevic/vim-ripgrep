@@ -28,16 +28,16 @@ if !exists('g:rg_highlight_type')
   let g:rg_highlight_type = 'keyword'
 endif
 
-fun! g:RgVisual() range
-  call s:RgGrepContext(function('s:RgSearch'), '"' . s:RgGetVisualSelection() . '"')
+fun! s:Rg(args)
+  call s:RgGrepContext(function('s:RgSearch'), a:args)
 endfun
 
-fun! g:Rg(txt)
-  call s:RgGrepContext(function('s:RgSearch'), a:txt)
-endfun
-
-fun! g:RgCword()
+fun! s:RgCword()
   call s:RgGrepContext(function('s:RgSearch'), "-w " . expand('<cword>'))
+endfun
+
+fun! s:RgVisual(args) range
+  call s:RgGrepContext(function('s:RgSearch'), '"' . s:RgGetVisualSelection() . '"' . ' ' . a:args)
 endfun
 
 fun! s:RgGetVisualSelection()
@@ -153,7 +153,7 @@ fun! s:RgShowRoot()
   endif
 endfun
 
-command! -nargs=* -complete=file -bang Rg       :call s:Rg(<q-args>)
-command! -nargs=0                -bang RgCword  :call s:Rg(<q-args>)
-command! -nargs=* -complete=file -bang RgVisual :call s:Rg(<q-args>)
-command! RgRoot :call s:RgShowRoot()
+command! -nargs=* -complete=file -bang        Rg         :call s:Rg(<q-args>)
+command! -nargs=0                -bang        RgCword    :call s:RgCword()
+command! -nargs=* -complete=file -bang -range RgVisual   :call s:RgVisual(<q-args>)
+command! -nargs=0                -bang        RgShowRoot :call s:RgShowRoot()
