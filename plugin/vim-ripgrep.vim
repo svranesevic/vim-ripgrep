@@ -24,6 +24,10 @@ if !exists('g:rg_window_location')
   let g:rg_window_location = 'botright'
 endif
 
+if !exists('g:rg_no_highlight')
+  let g:rg_highlight = 1
+endif
+
 if !exists('g:rg_highlight_type')
   let g:rg_highlight_type = 'keyword'
 endif
