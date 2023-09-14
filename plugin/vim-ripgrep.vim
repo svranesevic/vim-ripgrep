@@ -33,7 +33,11 @@ fun! g:RgVisual() range
 endfun
 
 fun! g:Rg(txt)
-  call s:RgGrepContext(function('s:RgSearch'), s:RgSearchTerm(a:txt))
+  call s:RgGrepContext(function('s:RgSearch'), a:txt)
+endfun
+
+fun! g:RgCword()
+  call s:RgGrepContext(function('s:RgSearch'), "-w " . expand('<cword>'))
 endfun
 
 fun! s:RgGetVisualSelection()
@@ -150,5 +154,6 @@ fun! s:RgShowRoot()
 endfun
 
 command! -nargs=* -complete=file -bang Rg       :call s:Rg(<q-args>)
+command! -nargs=0                -bang RgCword  :call s:Rg(<q-args>)
 command! -nargs=* -complete=file -bang RgVisual :call s:Rg(<q-args>)
 command! RgRoot :call s:RgShowRoot()
