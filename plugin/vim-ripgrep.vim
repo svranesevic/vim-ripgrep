@@ -32,6 +32,24 @@ if !exists('g:rg_highlight_type')
   let g:rg_highlight_type = 'keyword'
 endif
 
+fun! s:RgApplyKeyboardShortcuts()
+  " edit and exit quickfix
+  nnoremap <silent> <buffer> <C-e> <CR><C-w><C-w>:cclose<CR>
+  " preview silently
+  nnoremap <silent> <buffer> <C-o> <CR>:copen<CR>
+
+  " new tab
+  nnoremap <silent> <buffer> <C-t> <C-w><CR><C-w>T
+  " new tab silently (stay focused in quickfix)
+  nnoremap <silent> <buffer> <C-s> <C-w><CR><C-w>TgT<C-W><C-W>
+
+  " horizontal split
+  nnoremap <silent> <buffer> <C-x> <C-W><CR><C-w>K<C-w>b
+
+  " vertical splut
+  nnoremap <silent> <buffer> <C-v> :let b:height=winheight(0)<CR><C-w><CR><C-w>H:copen<CR><C-w>J:exe printf(":normal %d\<lt>c-w>_", b:height)<CR>
+endfun
+
 fun! s:Rg(args)
   call s:RgGrepContext(function('s:RgSearch'), a:args)
 endfun
@@ -83,6 +101,7 @@ fun! s:RgSearch(txt)
     redraw!
     echo "No match found for " . a:txt
   endif
+  call s:RgApplyKeyboardShortcuts()
 endfun
 
 fun! s:RgGrepContext(search, txt)

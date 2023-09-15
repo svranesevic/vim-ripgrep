@@ -6,7 +6,7 @@
 
 Word under cursor will be searched if no argument is passed to `Rg`
 
-## configuration
+## Configuration
 
 
 | Setting                | Default                 | Details
@@ -20,10 +20,14 @@ Word under cursor will be searched if no argument is passed to `Rg`
 | `g:rg_root_types`      | `['.git']`              | list of files/dir found in project root
 | `g:rg_window_location` | `botright`              | quickfix window location
 
-## misc
+## Keymaps
 
-Show root search dir
-
-```vim
-:RgRoot
-```
+| Shortcut           | Action
+| ------------------ | -----------------------------------------------------------
+| `<C-e>`            | edit and exit quickfix window
+| `<C-o>`            | preview/open file but leave focus in quickfix
+| `<C-q>`            | close quickfix
+| `<C-t>`            | open in new tab
+| `<C-s>`            | open in new tab silently (stay focused in current window)
+| `<C-x>`            | open in horizontal split
+| `<C-v>`            | open in vertical split
