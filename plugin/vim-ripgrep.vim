@@ -13,7 +13,7 @@ if !exists('g:rg_format')
 endif
 
 if !exists('g:rg_command')
-  let g:rg_command = g:rg_binary . ' --vimgrep'
+  let g:rg_command = g:rg_binary . ' --vimgrep --no-heading --with-filename --line-number --column --color=never --ignore-vcs --hidden -g "!.git/"'
 endif
 
 if !exists('g:rg_root_types')
