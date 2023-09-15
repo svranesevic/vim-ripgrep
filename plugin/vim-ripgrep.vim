@@ -176,4 +176,3 @@ endfun
 command! -nargs=* -complete=file -bang        Rg         :call s:Rg(<q-args>)
 command! -nargs=0                -bang        RgCword    :call s:RgCword()
 command! -nargs=* -complete=file -bang -range RgVisual   :call s:RgVisual(<q-args>)
-command! -nargs=0                -bang        RgShowRoot :call s:RgShowRoot()
