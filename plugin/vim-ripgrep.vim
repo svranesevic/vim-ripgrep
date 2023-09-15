@@ -51,7 +51,11 @@ fun! s:RgApplyKeyboardShortcuts()
 endfun
 
 fun! s:Rg(args)
-  call s:RgGrepContext(function('s:RgSearch'), a:args)
+  call s:RgGrepContext(function('s:RgSearch'), '-F "' . escape(a:args, '"') . '"')
+endfun
+
+fun! s:RgRe(args)
+  call s:RgGrepContext(function('s:RgSearch'), '"' . a:args . '"')
 endfun
 
 fun! s:RgCword()
@@ -59,7 +63,7 @@ fun! s:RgCword()
 endfun
 
 fun! s:RgVisual(args) range
-  call s:RgGrepContext(function('s:RgSearch'), '"' . s:RgGetVisualSelection() . '"' . ' ' . a:args)
+  call s:Rg(s:RgGetVisualSelection())
 endfun
 
 fun! s:RgGetVisualSelection()
@@ -174,5 +178,6 @@ fun! s:RgShowRoot()
 endfun
 
 command! -nargs=* -complete=file -bang        Rg         :call s:Rg(<q-args>)
+command! -nargs=* -complete=file -bang        RgRe       :call s:RgRe(<q-args>)
 command! -nargs=0                -bang        RgCword    :call s:RgCword()
 command! -nargs=* -complete=file -bang -range RgVisual   :call s:RgVisual(<q-args>)
