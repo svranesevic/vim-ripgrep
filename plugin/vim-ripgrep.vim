@@ -9,7 +9,7 @@ if !exists('g:rg_binary')
 endif
 
 if !exists('g:rg_format')
-  let g:rg_format = "%f:%l:%c:%m"
+  let g:rg_format = "%f:%l:%c:%m,%f:%l:%m"
 endif
 
 if !exists('g:rg_command')
