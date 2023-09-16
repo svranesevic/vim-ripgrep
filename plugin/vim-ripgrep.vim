@@ -51,19 +51,19 @@ fun! s:RgApplyKeyboardShortcuts()
 endfun
 
 fun! s:Rg(args)
-  call s:RgGrepContext(function('s:RgSearch'), '-F "' . escape(a:args, '"') . '"')
+  call s:RgGrepContext(function('s:RgSearch'), '-F ' . a:args)
 endfun
 
 fun! s:RgRe(args)
-  call s:RgGrepContext(function('s:RgSearch'), '"' . a:args . '"')
+  call s:RgGrepContext(function('s:RgSearch'), a:args)
 endfun
 
 fun! s:RgCword()
-  call s:RgGrepContext(function('s:RgSearch'), "-w " . expand('<cword>'))
+  call s:RgGrepContext(function('s:RgSearch'), '-w ' . expand('<cword>'))
 endfun
 
 fun! s:RgVisual(args) range
-  call s:Rg(s:RgGetVisualSelection())
+  call s:Rg(s:RgGetVisualSelection() . ' ' . a:args)
 endfun
 
 fun! s:RgGetVisualSelection()
@@ -76,15 +76,7 @@ fun! s:RgGetVisualSelection()
   endif
   let lines[-1] = lines[-1][: column_end - (&selection == 'inclusive' ? 1 : 2)]
   let lines[0] = lines[0][column_start - 1:]
-  return join(lines, "\n")
-endfun
-
-fun! s:RgSearchTerm(txt)
-  if empty(a:txt)
-    return expand("<cword>")
-  else
-    return a:txt
-  endif
+  return '"' . escape(join(lines, '\n'), '"') . '"'
 endfun
 
 fun! s:RgSearch(txt)
